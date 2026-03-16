@@ -1,0 +1,60 @@
+.banner {
+  /* ต้องเป็น relative เพื่อให้ Image fill และ overlay วางทับได้ */
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.overlay {
+  /* วางทับรูปเต็มพื้นที่ด้วยสีโปร่งใส เพื่อให้ข้อความอ่านง่ายขึ้น */
+  position: absolute;
+  inset: 0; /* shorthand สำหรับ top:0 right:0 bottom:0 left:0 */
+  background-color: #21193e99; /* #37353E + 60% opacity */
+  z-index: 1;
+}
+
+.content {
+  /* วางข้อความไว้เหนือ overlay (z-index > overlay) และกึ่งกลางจอ */
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tagline {
+  color: #d3dad9;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  padding: 0 1rem;
+}
+
+/* ---- Responsive ---- */
+
+/* Mobile: จอเล็กกว่า 640px */
+@media (max-width: 640px) {
+  .banner {
+    height: 260px;
+  }
+
+  .tagline {
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Tablet: 641px – 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .banner {
+    height: 380px;
+  }
+
+  .tagline {
+    font-size: 2rem;
+  }
+}
