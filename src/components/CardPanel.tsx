@@ -3,9 +3,13 @@
 import { useReducer } from "react";
 import Card from "@/components/Card";
 
-const venueNames = ["The Grand Table", "Spark Space", "The Bloom Pavilion"];
-
 type RatingsMap = Map<string, number>;
+
+const venues = [
+  { vid: "001", name: "The Bloom Pavilion", imgSrc: "/img/bloom.jpg" },
+  { vid: "002", name: "Spark Space", imgSrc: "/img/sparkspace.jpg" },
+  { vid: "003", name: "The Grand Table", imgSrc: "/img/grandtable.jpg" },
+];
 
 type RatingsAction = {
   type: "set-rating";
@@ -17,7 +21,7 @@ type RatingsAction = {
 };
 
 const initialRatings: RatingsMap = new Map(
-  venueNames.map((venueName) => [venueName, 0])
+  venues.map((venue) => [venue.name, 0])
 );
 
 function ratingsReducer(state: RatingsMap, action: RatingsAction): RatingsMap {
@@ -43,39 +47,21 @@ export default function CardPanel() {
   return (
     <div className="my-16 mx-6 flex flex-col items-center gap-16">
       <div className="mx-auto flex flex-row flex-wrap justify-center gap-6 pb-8 px-4 max-w-5xl">
-        <Card
-          venueName="The Grand Table"
-          imgSrc="/img/grandtable.jpg"
-          onRatingChange={(newRating) =>
-            dispatch({
-              type: "set-rating",
-              venueName: "The Grand Table",
-              rating: newRating,
-            })
-          }
-        />
-        <Card
-          venueName="Spark Space"
-          imgSrc="/img/sparkspace.jpg"
-          onRatingChange={(newRating) =>
-            dispatch({
-              type: "set-rating",
-              venueName: "Spark Space",
-              rating: newRating,
-            })
-          }
-        />
-        <Card
-          venueName="The Bloom Pavilion"
-          imgSrc="/img/bloom.jpg"
-          onRatingChange={(newRating) =>
-            dispatch({
-              type: "set-rating",
-              venueName: "The Bloom Pavilion",
-              rating: newRating,
-            })
-          }
-        />
+          {venues.map((venue) => (
+            <Card
+              key={venue.vid}
+              venueName={venue.name}
+              imgSrc={venue.imgSrc}
+              href={`/venue/${venue.vid}`}
+              onRatingChange={(newRating) =>
+                dispatch({
+                  type: "set-rating",
+                  venueName: venue.name,
+                  rating: newRating,
+                })
+              }
+            />
+          ))}
       </div>
 
       <div className="mx-auto mt-20 w-full max-w-2xl px-4">
